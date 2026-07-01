@@ -41,17 +41,22 @@ Every skill lives at `skills/<name>/SKILL.md` and opens with a plain-English lin
 | `weekly-fourbox` | User runs it, or a weekly schedule fires it | Generic recurring leadership update: highlights, lowlights, blockers, priorities. Writes to `shipped/`. | user |
 | `promote` | A human approves a promotion, or the keeper proposes one | Lifts a scrubbed, data-free skill/pattern from the overlay up to the base repo, then pulls it back. Never pushes private data. | user |
 | `voiceprint` | Called by `deliverable` and by voice intake | The stylometry engine. Intake builds the profile; verify scores a draft against it and returns a number. | subagent / user |
+| `notify` | A digest, urgent flag, or Home Stretch list is ready to post | Posts a synthesized internal-register update to the user's OWN Slack channel or DM (the one configured self-destination). Never posts to anyone external. Slack MCP send tools in a session; webhook fallback headless. | subagent / auto - called by refresh, home-stretch, or the urgency rule |
+| `home-stretch` | User asks what is left today, or a ~3pm schedule fires it | Reads the task layer, each desk's open items, and today's action items; filters to before-EOD; produces a short prioritized list; hands it to `notify`. | user / a 3pm schedule |
 
 ## Delegation map (must match `engine/operator.md`)
 
 ```
 capture   -> synthesize -> note-write
 refresh   -> [ingest-slack, ingest-gmail, ingest-calendar, ingest-notion, ingest-circleback]
-          -> synthesize -> note-write -> (update MEMORY.md, daily-rundown)
+          -> synthesize -> note-write -> (update MEMORY.md, daily-rundown) -> notify (digest + urgent)
 deliverable -> voiceprint (verify gate)
+home-stretch -> notify
 onboard   -> voiceprint (intake), keeper (first audit)
 promote   -> copy data-free file into base repo, commit+push base, then pull back into the instance
 keeper    -> proposes into the Gap ledger below, and proposes promotion candidates for the promote skill
+
+The urgency rule (engine/rulebook/urgency.md) triggers notify immediately, out of cadence, when a refresh detects an urgent signal. Non-urgent updates wait for the scheduled digest.
 ```
 
 If any arrow above points at a skill with no `SKILL.md` on disk, the keeper reports a phantom subagent. If a `SKILL.md` exists but appears in no arrow and no registry row, the keeper reports an orphan skill.

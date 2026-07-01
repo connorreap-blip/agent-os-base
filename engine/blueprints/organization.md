@@ -26,6 +26,7 @@ region: NOAM                 # controlled per your org list; NOAM is a placehold
 erp: null                    # e.g. "Microsoft Dynamics 365"; mark (confirm) if unverified
 key-contacts: []             # ["[[First Last]]", ...] link to atlas/people/
 internal-owners: ["[[<Your Name>]]"]   # who on your side runs this account
+slack-channel: null            # e.g. "#dp-<name>" - this org's Slack channel; joins the priority ingest list and routes its messages to this desk
 decisions: []                # ["[[YYYY-MM-DD - title]]"] link to atlas/decisions/
 source: sales-handoff        # provenance (where this org came from)
 health: null                 # free-note; drives status

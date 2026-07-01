@@ -38,6 +38,28 @@ For real-time "watch my world" behavior during an active work session:
 
 This makes ambient-assistant behavior real in the CLI, where writes actually land. Use it on heavy days; rely on Layers 1 to 4 otherwise.
 
+## Setup A: ambient /loop + Slack notify (recommended start)
+
+The background brain. Keep a Claude Code session open on an always-on Mac in your instance, with connectors authorized (Slack, Gmail, Circleback). In that session, run:
+
+```
+/loop <interval> run the refresh skill, then hand the digest and any urgent items to notify
+```
+
+`refresh` ingests and synthesizes; `notify` posts the digest and any urgent flags to your own Slack. Because this runs inside a live interactive session, the session's authorized connectors are used directly, which is why Slack send and Circleback/Gmail ingest work here.
+
+Re-arm it weekly: the in-session scheduler expires after 7 days, so re-issue the `/loop` command about once a week to keep the background brain alive.
+
+## Setup B: unattended (later)
+
+For a hands-off setup with no session open, a launchd job (macOS) or a Desktop scheduled task runs the agent headless on a cadence:
+
+```
+claude -p "run refresh then notify"
+```
+
+Headless runs cannot use OAuth connectors, so Slack posting has to be token-based: a Slack bot token (passed via a header) or an incoming webhook. This is the trade-off for going unattended, and it is why Setup A is the recommended start.
+
 ## Why this matters
 
 The system this replaced rotted for one reason: nothing ran continuously. Five stacked generations, a stale archive polluting the live graph, a "3x per day refresh" that ran twice in six weeks. These four layers plus decay-by-physics (see `engine/memory-policy.md`) and the excluded `attic/` make that failure structurally hard to repeat.

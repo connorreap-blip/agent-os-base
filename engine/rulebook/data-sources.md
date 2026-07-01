@@ -22,6 +22,11 @@ Loads when an `ingest-*` skill is in scope. This governs how the read-only inges
 - Each ingest is given an explicit scope (channels, labels, date window, folder) and pulls only that slice. Do not widen scope on your own.
 - Output is a signal pack: a typed list of signals with entities, intents, timestamps, and source links, returned to the orchestrator. `synthesize` turns signal packs into a write plan.
 
+## Slack priority ingest
+
+- `ingest-slack` reads a priority ingest list from the overlay file `slack-ingest.md`: a set of fixed channels, an optional channel-name pattern, all DMs, all @mentions, and all tags, plus any org's `slack-channel` (from its organization card). All of it is read-only.
+- A message that lands in an org's `slack-channel` routes to that org's desk, so the desk stays the single home for everything about that org.
+
 ## Per-source priority
 
 - When two sources disagree, a direct human statement outranks an automated feed, and a primary record outranks a derived one. Do not silently reconcile; flag the conflict to the contradiction ledger (see `self-audit.md`).

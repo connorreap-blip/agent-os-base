@@ -20,6 +20,10 @@ The two are kept apart by one rule: *base files are never edited in your copy; t
 - **A janitor that runs whether or not you remember to.** A linter cleans on every save, an auditor (the `keeper`) sweeps weekly, and continuous execution runs it four ways so drift has nowhere to hide. See `skills/keeper/` and `engine/rulebook/self-audit.md`.
 - **Works from the command line, can go ambient when driven.** The engine is complete on its own; passive comms-watching is an optional add-on. See `engine/rulebook/operating-mode.md`.
 
+## Ambient operations
+
+The agent can run as a background brain: a loop that ingests, synthesizes, and posts a digest plus urgent flags to your OWN Slack (never to a customer). It runs from a persistent `/loop` session on an always-on machine, or, later, as an unattended token-based job. See `engine/rulebook/operating-mode.md` for the model and `automation/README.md` for the runbook.
+
 ## Get started
 
 Run the onboarding interview:

@@ -23,7 +23,7 @@ Each output is one block with these fields:
 
 - **name** : what it is called.
 - **cadence** : how often it runs. Times resolve to the timezone set in `about-me.md`.
-- **trigger** : `schedule` (a scheduled run) or `keeper-pass` (produced as part of the weekly keeper sweep).
+- **trigger** : `schedule` (a scheduled run), `keeper-pass` (produced as part of the weekly keeper sweep), or `loop` (fired from a persistent ambient `/loop` session, see `engine/rulebook/operating-mode.md`).
 - **skill** : the skill (and flags) that produces it. These live in `skills/`.
 - **destination** : where the finished file lands under `shipped/`.
 - **base** : `true` if it ships with the product and contains no company data; `false` if it is a job-specific output your overlay added.
@@ -80,6 +80,35 @@ outputs:
     destination: shipped/_health/
     base: true
     # Is your written voice moving away from your profile.
+
+  - name: hourly-digest
+    cadence: hourly during work hours
+    trigger: loop
+    skill: refresh then notify
+    destination: the user's Slack
+    base: true
+    # The background-brain digest: refresh ingests and synthesizes,
+    # then notify posts the digest and any urgent items to your Slack.
+    # Runs from a persistent /loop session (Setup A) or an unattended
+    # token-based job (Setup B). See engine/rulebook/operating-mode.md.
+
+  - name: home-stretch
+    cadence: "weekdays 15:00 local"
+    trigger: loop
+    skill: home-stretch then notify
+    destination: the user's Slack
+    base: true
+    # The end-of-day push: what still needs to land before you log off,
+    # handed to notify for a Slack post.
+
+  - name: urgent-notify
+    cadence: on-trigger
+    trigger: loop
+    skill: notify
+    destination: the user's Slack
+    base: true
+    # Fires the moment an urgent signal clears the bar, out of band from
+    # the digest cadence. See engine/rulebook/urgency.md.
 
   # --- OVERLAY (job-specific, added by your preset or by hand) ---
   # These bind to your real data, so they carry base: false.

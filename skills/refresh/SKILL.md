@@ -27,12 +27,13 @@ Refresh is the top orchestrator for connector ingestion. It fans out the ingest 
 6. **Update memory.** Refresh the `MEMORY.md` index; the invoke-count hook has already stamped anything read this session.
 7. **Update the rundown.** Call `daily-rundown` to regenerate the briefing from the freshly written graph.
 8. **Report** the counts: signals in, notes written, tasks enqueued, clarifications pending.
+9. **Notify.** In ambient mode, hand the synthesized digest and any urgent flags to the `notify` skill (urgent items post immediately per `engine/rulebook/urgency.md`; the rest go in the scheduled digest). Notify posts only to the user's own configured self-destination.
 
 ## Delegation
 
 ```
 refresh -> [ingest-slack, ingest-gmail, ingest-calendar, ingest-notion, ingest-circleback]  (parallel, read-only)
-        -> synthesize -> note-write -> (update MEMORY.md, daily-rundown)
+        -> synthesize -> note-write -> (update MEMORY.md, daily-rundown) -> notify (digest + urgent)
 ```
 
 This map must match `engine/operator.md` and `skills/menu.md`.

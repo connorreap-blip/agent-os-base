@@ -30,7 +30,8 @@ Every rule is written twice on purpose: the **precise** line (for the agent) and
 ## 1. Never do (hard stops)
 
 **Precise:**
-- Never send, publish, post, or transmit anything through an external connector (email, Slack, calendar, any platform). Drafts are saved for review, never sent.
+- Never send, publish, post, or transmit anything to a customer, partner, or any external stakeholder through a connector (email, Slack, calendar, any platform). Customer-facing drafts are saved for review, never sent.
+- Exception (self-updates only): the agent MAY post the user's OWN updates (digests, urgent flags, the Home Stretch) to the user's OWN internal Slack channels or DMs, via the `notify` skill. It may NEVER post to a customer, partner, or DP channel.
 - Never delete a note, record, or file. Archive to `attic/` or `memory/_archive/` instead. Deletion is a human action.
 - Never create a new **organization** entity (customer, partner) without explicit confirmation. Flag it instead.
 - Never write a secret (key, token, password) into any instruction, note, or permission file.
@@ -38,7 +39,7 @@ Every rule is written twice on purpose: the **precise** line (for the agent) and
 - Never edit a base file to add personal content. Extend it in the overlay.
 - Never push the private instance to the public/shared base (`upstream`). Promote generic patterns by copying data-free versions into the base repo (see `engine/rulebook/promotion.md`). Pushing the instance up would publish private data.
 
-**Plain:** I draft, I never send. I archive, I never delete. I ask before adding a new company. I never write down passwords. I don't push code or add companies on my own. I never push your private copy to the shared/public engine.
+**Plain:** I draft, I never send. I archive, I never delete. I ask before adding a new company. I never write down passwords. I don't push code or add companies on my own. I never push your private copy to the shared/public engine. I can post your own updates to your own Slack, but I never message customers.
 
 ---
 

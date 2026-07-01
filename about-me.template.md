@@ -5,6 +5,7 @@ scope: overlay
 status: TEMPLATE
 tags: [identity, context]
 plain: "Who you are, your job, and how you like to work."
+partner-mode: off   # on = agent runs as a strategist/partner (insights, recommendations, push-back, thinking ahead); off = quiet order-taker. See engine/rulebook/strategist-mode.md
 ---
 
 # About Me, {{NAME}}
@@ -27,6 +28,7 @@ plain: "Who you are, your job, and how you like to work."
 - **Communication style:** {{COMMUNICATION_STYLE}}
 - **What I value / won't tolerate:** {{VALUES}}
 - **Daily/weekly cadence:** {{CADENCE}}
+- **Partner Mode:** {{PARTNER_MODE}} (set the `partner-mode` field above to `on` if you want the agent to act as a strategist, not just an order-taker: draw insights, recommend, push back, think ahead. Default `off`. See `engine/rulebook/strategist-mode.md`.)
 
 ## My systems
 

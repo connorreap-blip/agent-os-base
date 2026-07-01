@@ -35,8 +35,12 @@ Every skill lives at `skills/<name>/SKILL.md` and opens with a plain-English lin
 | `ingest-calendar` | Called by `refresh` | Reads a scoped calendar window, returns a signal pack. Read-only. | subagent |
 | `ingest-notion` | Called by `refresh` | Reads scoped Notion pages, returns a signal pack. Read-only. | subagent |
 | `ingest-circleback` | Called by `refresh`, or user asks to pull recent meetings | Reads recent Circleback meeting notes (the verified record), returns a signal pack. Read-only. Preferred over implementation/CRM "sync" drafts. | subagent / user |
+| `ingest-jira` | Called by `refresh` | Reads a scoped set of Jira issues (project, JQL, or keys), returns a signal pack. Read-only, never changes a ticket. | subagent |
+| `ingest-hubspot` | Called by `refresh` | Reads scoped HubSpot CRM records (companies, contacts, deals, tickets), returns a signal pack. Read-only, never changes the CRM. | subagent |
 | `daily-rundown` | User runs it, or a schedule fires it | Reads the refreshed graph (no connectors) and writes a dated briefing to `shipped/`. | user |
 | `deliverable` | User asks for a voiced draft (email, brief, deck, message) | Generates a voiced deliverable: draft with voice-routing, verify against the voiceprint gate, save to `shipped/`. Never sends. | user |
+| `follow-up-email` | User asks for a follow-up or recap email after a call, meeting, or thread | Specialized `deliverable`: sorts every open item into five buckets (support tickets, feature requests, outstanding questions, due dates, next steps), drafts in voice, gates, saves to `shipped/`. Never sends. | user |
+| `meeting-agenda-email` | User asks for a meeting agenda or pre-read email | Specialized `deliverable`: assembles an agenda from the target's real desk state (carryover, open questions, pending decisions, upcoming dates), drafts in voice, gates, saves to `shipped/`. Never sends. | user |
 | `new-account` | User asks to stand up a new customer or partner | Clones the current account blueprint into `desks/<Name>/` and seeds the overview. Confirms before creating the org. | user |
 | `weekly-fourbox` | User runs it, or a weekly schedule fires it | Generic recurring leadership update: highlights, lowlights, blockers, priorities. Writes to `shipped/`. | user |
 | `promote` | A human approves a promotion, or the keeper proposes one | Lifts a scrubbed, data-free skill/pattern from the overlay up to the base repo, then pulls it back. Never pushes private data. | user |
@@ -48,9 +52,11 @@ Every skill lives at `skills/<name>/SKILL.md` and opens with a plain-English lin
 
 ```
 capture   -> synthesize -> note-write
-refresh   -> [ingest-slack, ingest-gmail, ingest-calendar, ingest-notion, ingest-circleback]
+refresh   -> [ingest-slack, ingest-gmail, ingest-calendar, ingest-notion, ingest-circleback, ingest-jira, ingest-hubspot]
           -> synthesize -> note-write -> (update MEMORY.md, daily-rundown) -> notify (digest + urgent)
 deliverable -> voiceprint (verify gate)
+follow-up-email -> voiceprint (verify gate)        # specialized deliverable
+meeting-agenda-email -> voiceprint (verify gate)   # specialized deliverable
 home-stretch -> notify
 onboard   -> voiceprint (intake), keeper (first audit)
 promote   -> copy data-free file into base repo, commit+push base, then pull back into the instance

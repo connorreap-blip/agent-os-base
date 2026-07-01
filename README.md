@@ -11,7 +11,7 @@ This is the **base**: a clean, company-agnostic engine anyone can use. Your real
 - **Base** = the engine: rules, note schemas, skills, the auditor, the onboarding flow, the memory-decay math, the voice mechanism.
 - **Overlay** = yours: your identity, your data, your voice profile, your connectors.
 
-The two are kept apart by one rule: *base files are never edited in your copy; the overlay extends or overrides them.* Improvements flow both ways on a git fork (you pull engine upgrades down; your generic patterns get promoted up).
+The two are kept apart by one rule: *base files are never edited in your copy; the overlay extends or overrides them.* They live in two separate repos: your private copy pulls engine upgrades DOWN from the shared base, and generic patterns move UP by promotion (a deliberate, sanitized copy into the base), never by pushing your private data. See `engine/rulebook/promotion.md`.
 
 ## The parts that matter most
 

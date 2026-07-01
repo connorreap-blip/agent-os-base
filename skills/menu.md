@@ -39,6 +39,7 @@ Every skill lives at `skills/<name>/SKILL.md` and opens with a plain-English lin
 | `deliverable` | User asks for a voiced draft (email, brief, deck, message) | Generates a voiced deliverable: draft with voice-routing, verify against the voiceprint gate, save to `shipped/`. Never sends. | user |
 | `new-account` | User asks to stand up a new customer or partner | Clones the current account blueprint into `desks/<Name>/` and seeds the overview. Confirms before creating the org. | user |
 | `weekly-fourbox` | User runs it, or a weekly schedule fires it | Generic recurring leadership update: highlights, lowlights, blockers, priorities. Writes to `shipped/`. | user |
+| `promote` | A human approves a promotion, or the keeper proposes one | Lifts a scrubbed, data-free skill/pattern from the overlay up to the base repo, then pulls it back. Never pushes private data. | user |
 | `voiceprint` | Called by `deliverable` and by voice intake | The stylometry engine. Intake builds the profile; verify scores a draft against it and returns a number. | subagent / user |
 
 ## Delegation map (must match `engine/operator.md`)
@@ -49,7 +50,8 @@ refresh   -> [ingest-slack, ingest-gmail, ingest-calendar, ingest-notion, ingest
           -> synthesize -> note-write -> (update MEMORY.md, daily-rundown)
 deliverable -> voiceprint (verify gate)
 onboard   -> voiceprint (intake), keeper (first audit)
-keeper    -> proposes into the Gap ledger below
+promote   -> copy data-free file into base repo, commit+push base, then pull back into the instance
+keeper    -> proposes into the Gap ledger below, and proposes promotion candidates for the promote skill
 ```
 
 If any arrow above points at a skill with no `SKILL.md` on disk, the keeper reports a phantom subagent. If a `SKILL.md` exists but appears in no arrow and no registry row, the keeper reports an orphan skill.

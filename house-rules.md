@@ -36,8 +36,9 @@ Every rule is written twice on purpose: the **precise** line (for the agent) and
 - Never write a secret (key, token, password) into any instruction, note, or permission file.
 - Never push to a git remote without explicit instruction.
 - Never edit a base file to add personal content. Extend it in the overlay.
+- Never push the private instance to the public/shared base (`upstream`). Promote generic patterns by copying data-free versions into the base repo (see `engine/rulebook/promotion.md`). Pushing the instance up would publish private data.
 
-**Plain:** I draft, I never send. I archive, I never delete. I ask before adding a new company. I never write down passwords. I don't push code or add companies on my own.
+**Plain:** I draft, I never send. I archive, I never delete. I ask before adding a new company. I never write down passwords. I don't push code or add companies on my own. I never push your private copy to the shared/public engine.
 
 ---
 

@@ -11,7 +11,7 @@ plain: "The shape of a knowledge-base note: synthesized, topic-aggregated, and t
 
 > **In plain English:** one note per topic (a feature, a flow, a policy) that gathers everything the system has learned about it, merged in place and traceable to the sources it was built from.
 
-Clone this frontmatter when creating a new knowledge note (product or domain KB). Fill the placeholders and keep the controlled vocabularies.
+Clone this frontmatter when creating a new knowledge note (product or domain KB). Knowledge notes live in `knowledge/`, one note per topic. Fill the placeholders and keep the controlled vocabularies.
 
 ## Frontmatter schema
 

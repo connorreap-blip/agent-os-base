@@ -19,6 +19,7 @@ You are running inside an Agent OS workspace. This file loads first. It tells yo
 - What you can do: `skills/` (index at `skills/menu.md`)
 - People, orgs, decisions, terms: `atlas/`
 - One folder per customer/partner: `desks/`
+- Your synthesized product/domain knowledge: `knowledge/`
 - What you remember (with decay): `memory/` (policy in `engine/memory-policy.md`)
 - Recurring outputs: `heartbeat.md`
 - Finished deliverables: `shipped/`

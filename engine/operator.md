@@ -29,7 +29,7 @@ Orchestrators dispatch subagents; a subagent returns a typed artifact and writes
 
 | Orchestrator | Dispatches (in order) | Subagent returns | Terminal writer |
 |---|---|---|---|
-| `refresh` | `ingest-slack`, `ingest-gmail`, `ingest-calendar`, `ingest-notion`, `ingest-drive` (read-only, parallel), then `synthesize` | signal pack, then write plan | `note-write` |
+| `refresh` | `ingest-slack`, `ingest-gmail`, `ingest-calendar`, `ingest-notion`, `ingest-circleback` (read-only, parallel), then `synthesize` | signal pack, then write plan | `note-write` |
 | `capture` | `synthesize` on a single human-brought input | write plan | `note-write` |
 | `deliverable` | drafts, then `voiceprint:verify` as a numeric gate | pass or fail plus a score | saves the draft, never sends |
 | `keeper` | its own audit passes | findings and proposals | writes reports to `shipped/_health/` |

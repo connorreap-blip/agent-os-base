@@ -35,7 +35,6 @@ Every skill lives at `skills/<name>/SKILL.md` and opens with a plain-English lin
 | `ingest-calendar` | Called by `refresh` | Reads a scoped calendar window, returns a signal pack. Read-only. | subagent |
 | `ingest-notion` | Called by `refresh` | Reads scoped Notion pages, returns a signal pack. Read-only. | subagent |
 | `ingest-circleback` | Called by `refresh`, or user asks to pull recent meetings | Reads recent Circleback meeting notes (the verified record), returns a signal pack. Read-only. Preferred over implementation/CRM "sync" drafts. | subagent / user |
-| `ingest-drive` | Called by `refresh` | Reads scoped Drive files, returns a signal pack. Read-only. | subagent |
 | `daily-rundown` | User runs it, or a schedule fires it | Reads the refreshed graph (no connectors) and writes a dated briefing to `shipped/`. | user |
 | `deliverable` | User asks for a voiced draft (email, brief, deck, message) | Generates a voiced deliverable: draft with voice-routing, verify against the voiceprint gate, save to `shipped/`. Never sends. | user |
 | `new-account` | User asks to stand up a new customer or partner | Clones the current account blueprint into `desks/<Name>/` and seeds the overview. Confirms before creating the org. | user |
@@ -46,7 +45,7 @@ Every skill lives at `skills/<name>/SKILL.md` and opens with a plain-English lin
 
 ```
 capture   -> synthesize -> note-write
-refresh   -> [ingest-slack, ingest-gmail, ingest-calendar, ingest-notion, ingest-circleback, ingest-drive]
+refresh   -> [ingest-slack, ingest-gmail, ingest-calendar, ingest-notion, ingest-circleback]
           -> synthesize -> note-write -> (update MEMORY.md, daily-rundown)
 deliverable -> voiceprint (verify gate)
 onboard   -> voiceprint (intake), keeper (first audit)

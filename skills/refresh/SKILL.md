@@ -20,7 +20,7 @@ Refresh is the top orchestrator for connector ingestion. It fans out the ingest 
 ## Steps
 
 1. **Scope the window.** Determine the time range and which connectors to read (default: since last refresh).
-2. **Dispatch ingest subagents in parallel.** Send one scope to each configured ingest skill: `ingest-slack`, `ingest-gmail`, `ingest-calendar`, `ingest-notion`, `ingest-drive`. Each is read-only and returns a signal pack. Do not call an ingest skill that has no `SKILL.md` on disk; the keeper flags phantoms.
+2. **Dispatch ingest subagents in parallel.** Send one scope to each configured ingest skill: `ingest-slack`, `ingest-gmail`, `ingest-calendar`, `ingest-notion`, `ingest-circleback`. Each is read-only and returns a signal pack. Do not call an ingest skill that has no `SKILL.md` on disk; the keeper flags phantoms.
 3. **Collect the packs.** Wait for all; drop any that returned empty.
 4. **Synthesize.** Hand the combined packs to `synthesize`. It resolves entities across sources, enforces reciprocity, and returns one write plan.
 5. **Write.** Hand the write plan to `note-write` for execution.
@@ -31,7 +31,7 @@ Refresh is the top orchestrator for connector ingestion. It fans out the ingest 
 ## Delegation
 
 ```
-refresh -> [ingest-slack, ingest-gmail, ingest-calendar, ingest-notion, ingest-drive]  (parallel, read-only)
+refresh -> [ingest-slack, ingest-gmail, ingest-calendar, ingest-notion, ingest-circleback]  (parallel, read-only)
         -> synthesize -> note-write -> (update MEMORY.md, daily-rundown)
 ```
 

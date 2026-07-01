@@ -42,6 +42,7 @@ It asks who you are, how you work, and what you write like, then builds your ove
 | `skills/` | Everything the agent knows how to do (plus `menu.md`, the index). |
 | `atlas/` | Your map of people, orgs, decisions, and terms. One card each. |
 | `desks/` | One folder per customer or partner. Everything about them in one place. |
+| `knowledge/` | Your synthesized product/domain knowledge, one topic note per area, traceable to its sources. |
 | `memory/` | What the agent remembers, with a shelf-life. |
 | `heartbeat.md` | The things the system makes on a schedule, whatever you're working on. |
 | `shipped/` | Finished deliverables the agent produced. |

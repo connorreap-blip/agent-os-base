@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  keeper.launchd.plist.template  (Layer 3 of continuous execution; the nightly local keeper)
+
+  In plain English: this is a macOS scheduled job that runs the keeper and refresh
+  on your Mac every night while you sleep. Because it runs locally, it can write
+  your files (a cloud routine cannot). This is the workhorse of the anti-drift design.
+
+  Install:
+    1. Replace {{WORKSPACE_PATH}} with the absolute path to your workspace.
+    2. Replace {{HOUR}}/{{MINUTE}} with your preferred run time (24h).
+    3. Save as ~/Library/LaunchAgents/com.agentos.keeper.plist
+    4. launchctl load ~/Library/LaunchAgents/com.agentos.keeper.plist
+  Requires the `claude` CLI on PATH. Uses headless print mode (-p).
+  StartCalendarInterval re-runs on next wake if the Mac was asleep at the scheduled time.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.agentos.keeper</string>
+
+  <key>WorkingDirectory</key>
+  <string>{{WORKSPACE_PATH}}</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-lc</string>
+    <string>cd "{{WORKSPACE_PATH}}" &amp;&amp; claude -p "Run the keeper skill, then the refresh skill. Commit and push any changes." &gt;&gt; "{{WORKSPACE_PATH}}/shipped/_health/keeper.log" 2&gt;&amp;1</string>
+  </array>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>{{HOUR}}</integer>
+    <key>Minute</key>
+    <integer>{{MINUTE}}</integer>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>

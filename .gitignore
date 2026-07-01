@@ -1,0 +1,28 @@
+# Secrets and local config — never commit
+.claude/settings.local.json
+*.local.json
+.env
+.env.*
+*.key
+*.pem
+credentials*.json
+
+# Obsidian per-machine state (keep app.json/graph.json, ignore workspace)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+# macOS / editor cruft
+.DS_Store
+.AppleDouble
+._*
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Tolaria / Clearly local app files
+.laputa/settings.json
+
+# Node (if any tooling is added)
+node_modules/

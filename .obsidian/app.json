@@ -1,0 +1,11 @@
+{
+  "alwaysUpdateLinks": true,
+  "newLinkFormat": "shortest",
+  "useMarkdownLinks": false,
+  "attachmentFolderPath": "atlas/sources",
+  "userIgnoreFilters": [
+    "attic/",
+    "memory/_archive/"
+  ],
+  "showUnsupportedFiles": false
+}
